@@ -1,0 +1,10 @@
+# 备份文件
+*.orig.bak
+*.bak
+
+# 测试产物
+.playwright-mcp/
+
+# 系统文件
+Thumbs.db
+.DS_Store
