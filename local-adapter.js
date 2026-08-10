@@ -809,9 +809,12 @@
           teamData: JSON.stringify(buildEnemiesFor('main_story', 5))
         };
       }
+      // 客户端 dsEnemyData 期望数组，故这里返回解析后的队伍数组
+      var defTeamArr = [];
+      if (def.teamData) { try { var t = JSON.parse(def.teamData); if (Array.isArray(t)) defTeamArr = t; } catch (e) {} }
       return jsonRes({
         success: true,
-        defender: { playerName: def.playerName, mainHeroName: def.mainHeroName || '', teamData: def.teamData }
+        defender: { playerName: def.playerName, mainHeroName: def.mainHeroName || '', teamData: defTeamArr }
       });
     }
     if (path.indexOf('/api/history') >= 0 || path.indexOf('/history') >= 0) {
@@ -984,6 +987,76 @@
       }
       return originalSendBeacon.call(navigator, url, data);
     };
+  }
+
+  // ========== 斗神殿自动预注册（99 账号全部进排行榜） ==========
+  // 遍历 tianchaoxiaojiang_save_v3_1..99 存档，用游戏全局函数计算战力并序列化队伍，
+  // 一次性注册进 leaderboard，使斗神殿有 99 个可挑战对手。
+  function seedDoushenLeaderboard() {
+    try {
+      DB = null; // 强制重读，避免旧内存缓存覆盖
+      var db = getDb();
+      var added = 0;      for (var n = 1; n <= 99; n++) {
+        try {
+          var raw = localStorage.getItem('tianchaoxiaojiang_save_v3_' + n);
+          if (!raw) continue;
+          var gd = JSON.parse(raw);
+          var uid = 'DS-acc-' + n;
+          if (db.leaderboard.some(function (p) { return p.userId === uid && p.teamData; })) continue; // 已有完整队伍则跳过
+          // teamData：精简序列化（含战斗所需字段），buildLocalTeam/客户端均可解析
+          var teamData = [];
+          var totalPower = 0;
+          for (var pos = 1; pos <= 9; pos++) {
+            var idx = (gd.formation && gd.formation[pos] != null) ? gd.formation[pos] : null;
+            if (idx == null) continue;
+            var h = gd.heroList[idx];
+            if (!h) continue;
+            var skill = { name: '普通攻击', mul: 1.0, type: 'single' };
+            if (typeof getSkillConfig === 'function') skill = getSkillConfig(h.name, !!h.isMainHero);
+            var hpV = 0;
+            if (typeof calcHeroHp === 'function') hpV = calcHeroHp(h);
+            else hpV = h.baseHp || 100;
+            var rageV = (typeof INIT_RAGE !== 'undefined' ? INIT_RAGE : 50);
+            if (typeof window.calcInitRage === 'function') { try { rageV = window.calcInitRage(h); } catch (e) {} }
+            var atkV = (typeof calcHeroAtk === 'function') ? calcHeroAtk(h) : (h.baseAtk || 10);
+            var statsV = (typeof getEffectiveStats === 'function') ? getEffectiveStats(h) : (h.specialStats || {});
+            var xfV = (typeof window.heroXianfeng === 'function') ? window.heroXianfeng(h) : ((h.level || 1) * 5);
+            teamData.push({
+              name: h.name, heroName: h.name, level: h.level || 1, position: pos,
+              baseAtk: h.baseAtk || 10, baseHp: h.baseHp || 100,
+              atk: atkV, hp: hpV, maxHp: hpV, rage: rageV, job: h.job || '武神',
+              isMainHero: !!h.isMainHero, skill: skill.name, skillName: skill.name,
+              skillType: skill.type, skillMul: skill.mul, skillEffects: skill.effects || [],
+              specialStats: statsV, xianfeng: xfV, star: h.star || 1
+            });
+            if (typeof window.heroPower === 'function') { try { totalPower += window.heroPower(h); } catch (e) {} }
+          }
+          if (!teamData.length) continue;
+          var pname = gd.playerName || ('账号' + n);
+          localPvp.register(uid, pname, totalPower, JSON.stringify(teamData));
+          added++;
+        } catch (e2) { /* 单账号异常跳过 */ }
+      }
+      if (added > 0) log('斗神殿预注册完成，新增', added, '个账号');
+    } catch (e) { warn('seedDoushenLeaderboard 异常:', e); }
+  }
+
+  // DOMContentLoaded 后游戏全局函数就绪，延迟预注册（多次重试，确保函数可用）
+  function trySeed(retry) {
+    try {
+      if (typeof window.heroPower === 'function' && typeof getSkillConfig === 'function') {
+        seedDoushenLeaderboard();
+      } else if (retry < 10) {
+        setTimeout(function () { trySeed(retry + 1); }, 1000);
+      }
+    } catch (e) {
+      if (retry < 10) setTimeout(function () { trySeed(retry + 1); }, 1000);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(function () { trySeed(0); }, 500);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(function () { trySeed(0); }, 500); });
   }
 
   // ========== 处理缺失的怪物图片（兜底为默认头像） ==========
