@@ -45,6 +45,29 @@
     return 'ST-' + Math.random().toString(36).slice(2, 10) + '-' + Math.random().toString(36).slice(2, 6);
   }
 
+  // ===== 99 个本地账号槽（1~99）：账号=密码=数字 =====
+  function isAccountNum(v) {
+    if (typeof v !== 'string') return false;
+    if (!/^[1-9][0-9]?$/.test(v)) return false;
+    var n = parseInt(v, 10);
+    return n >= 1 && n <= 99;
+  }
+  function ensureAccounts() {
+    try {
+      var db = getAccounts();
+      var changed = false;
+      for (var i = 1; i <= 99; i++) {
+        var key = String(i);
+        if (!db[key]) {
+          db[key] = { password: key, userId: 'DS-acc-' + key };
+          changed = true;
+        }
+      }
+      if (changed) saveAccounts(db);
+    } catch (e) {}
+  }
+  ensureAccounts();
+
   // ===== 本地版：自动创建本地账号并写会话 =====
   // 返回 session 对象；若已有会话则直接返回现有会话。
   window.__localCreateSession = function () {
@@ -583,23 +606,36 @@
       var name1 = (b1.playerName || '').trim();
       var pwd1 = b1.password || '';
       var dbA = getAccounts();
-      if (dbA[name1]) {
-        return jsonRes({ success: false, error: '该账号已被注册' });
+      // 99 账号制：账号必须是 1~99 数字，密码必须与账号相同
+      if (!isAccountNum(name1)) {
+        return jsonRes({ success: false, error: '账号必须是 1~99 的数字' });
       }
-      var uid1 = makeUserId(name1);
-      dbA[name1] = { password: pwd1, userId: uid1 };
-      saveAccounts(dbA);
-      return jsonRes({ success: true, userId: uid1 });
+      if (pwd1 !== name1) {
+        return jsonRes({ success: false, error: '密码必须与账号相同' });
+      }
+      if (!dbA[name1]) {
+        dbA[name1] = { password: name1, userId: 'DS-acc-' + name1 };
+        saveAccounts(dbA);
+      }
+      return jsonRes({ success: true, userId: dbA[name1].userId });
     }
     if (path.indexOf('/api/auth/login') >= 0 || path.indexOf('/auth/login') >= 0) {
       var b2 = parseBody();
       var name2 = (b2.playerName || '').trim();
       var pwd2 = b2.password || '';
       var dbA2 = getAccounts();
-      var acc = dbA2[name2];
-      if (!acc) return jsonRes({ success: false, error: '账号不存在' });
-      if (acc.password !== pwd2) return jsonRes({ success: false, error: '密码错误' });
-      return jsonRes({ success: true, userId: acc.userId, sessionToken: makeToken() });
+      // 99 账号制：账号必须是 1~99 数字，密码必须与账号相同
+      if (!isAccountNum(name2)) {
+        return jsonRes({ success: false, error: '账号必须是 1~99 的数字' });
+      }
+      if (pwd2 !== name2) {
+        return jsonRes({ success: false, error: '密码必须与账号相同' });
+      }
+      if (!dbA2[name2]) {
+        dbA2[name2] = { password: name2, userId: 'DS-acc-' + name2 };
+        saveAccounts(dbA2);
+      }
+      return jsonRes({ success: true, userId: dbA2[name2].userId, sessionToken: makeToken() });
     }
     if (path.indexOf('/api/check-name') >= 0 || path.indexOf('/check-name') >= 0) {
       var mq = path.match(/name=([^&]*)/);

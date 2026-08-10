@@ -7,7 +7,7 @@
 
 原理：decrypted_inner.html 与已知可用的本地版 game.html 之间，
 差异仅是一组「本地化补丁」。补丁以【行级差异操作】记录在
-localize_patch.json（src_lines + ops，38 个 replace/insert/delete 操作），
+localize_patch.json（src_lines + ops，57 个 replace/insert/delete 操作），
 本脚本把这些操作按逆序应用到最新源上（保证行号不漂移），得到
 最新版本的本地化 game.html，并可与 git HEAD 中已验证的 game.html
 逐字节比对（可选）。

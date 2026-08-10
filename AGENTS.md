@@ -38,11 +38,11 @@ tianchaoxiaojiang\
 
 ## 本地化原理（重要）
 
-`game.html` = `decrypted_inner.html` + 本地化补丁（`tools/localize_patch.json`，38 个行级操作）：
+`game.html` = `decrypted_inner.html` + 本地化补丁（`tools/localize_patch.json`，57 个行级操作）：
 
 1. **静态资源改相对路径**：`http://103.236.98.227:3000/audio/*` → `audio/*`，`http://103.236.98.227:18880/images/*` → `images/*`
 2. **注入** `<script src="local-adapter.js">`，运行时拦截 `window.fetch` 与 `navigator.sendBeacon`，把注册/登录/云存档/战斗/排行榜/聊天/帮派/邮件/云宝全部在本地模拟
-3. **登录/云存档 UI 改本地版**：无需账号密码，自动创建本地账号；存档写入 `localStorage`；「重置账号」清空全部本地数据
+3. **登录系统改 99 账号制**：账号 1~99，密码=账号数字；存档按账号分槽（`tianchaoxiaojiang_save_v3_<账号>`）；退出登录可切换账号；「重置账号」仅清空当前账号存档，不影响其他 98 个账号
 4. **API 硬编码 URL（`DS_API`/`AUTH_API` 等约 21 处）保留不动**——它们全走 `fetch`/`sendBeacon`，由 local-adapter 运行时拦截，绝不产生外网请求
 
 ## 启动方式
