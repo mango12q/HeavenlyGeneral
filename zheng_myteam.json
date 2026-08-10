@@ -1,0 +1,342 @@
+[
+ {
+  "name": "赵子龙",
+  "heroName": "赵子龙",
+  "level": 90,
+  "position": 1,
+  "atk": 44217,
+  "hp": 286828,
+  "maxHp": 286828,
+  "rage": 134,
+  "job": "斗皇",
+  "isMainHero": null,
+  "skill": "龙胆银枪",
+  "skillType": "column",
+  "skillMul": 1.6,
+  "specialStats": {
+   "crit": 165,
+   "tenacity": 0,
+   "block": 0,
+   "pierce": 139,
+   "deadly": 130,
+   "healBonus": 0,
+   "hit": 115,
+   "dodge": 0,
+   "physDef": 21098,
+   "magicDef": 21098
+  },
+  "xianfeng": 766,
+  "star": 1,
+  "equipments": [
+   {
+    "name": "金琼剑",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 0
+   },
+   {
+    "name": "天琼甲",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 1
+   },
+   {
+    "name": "天琼冠",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 2
+   },
+   {
+    "name": "金琼腕",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 3
+   },
+   {
+    "name": "天琼靴",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 4
+   },
+   {
+    "name": "金琼坠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 5
+   }
+  ],
+  "xianqi": null
+ },
+ {
+  "name": "齐天大圣",
+  "heroName": "齐天大圣",
+  "level": 90,
+  "position": 3,
+  "atk": 44177,
+  "hp": 305460,
+  "maxHp": 305460,
+  "rage": 146,
+  "job": "斗皇",
+  "isMainHero": null,
+  "skill": "大闹天宫",
+  "skillType": "all",
+  "skillMul": 1.3,
+  "specialStats": {
+   "crit": 186,
+   "tenacity": 0,
+   "block": 0,
+   "pierce": 161,
+   "deadly": 154,
+   "healBonus": 0,
+   "hit": 105,
+   "dodge": 0,
+   "physDef": 29042,
+   "magicDef": 29042
+  },
+  "xianfeng": 766,
+  "star": 1,
+  "equipments": [
+   {
+    "name": "金琼剑",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 0
+   },
+   {
+    "name": "金琼甲",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 1
+   },
+   {
+    "name": "金琼冠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 2
+   },
+   {
+    "name": "金琼腕",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 3
+   },
+   {
+    "name": "金琼靴",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 4
+   },
+   {
+    "name": "金琼坠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 5
+   }
+  ],
+  "xianqi": null
+ },
+ {
+  "name": "小白龙",
+  "heroName": "小白龙",
+  "level": 90,
+  "position": 4,
+  "atk": 42277,
+  "hp": 289928,
+  "maxHp": 289928,
+  "rage": 140,
+  "job": "斗皇",
+  "isMainHero": null,
+  "skill": "白龙翻江",
+  "skillType": "single",
+  "skillMul": 2.3,
+  "specialStats": {
+   "crit": 144,
+   "tenacity": 101,
+   "block": 0,
+   "pierce": 0,
+   "deadly": 122,
+   "healBonus": 0,
+   "hit": 0,
+   "dodge": 170,
+   "physDef": 24354,
+   "magicDef": 24666
+  },
+  "xianfeng": 766,
+  "star": 1,
+  "equipments": [
+   {
+    "name": "金琼剑",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 0
+   },
+   {
+    "name": "金琼甲",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 1
+   },
+   {
+    "name": "金琼冠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 2
+   },
+   {
+    "name": "金琼腕",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 3
+   },
+   {
+    "name": "金琼靴",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 4
+   },
+   {
+    "name": "金琼坠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 5
+   }
+  ],
+  "xianqi": null
+ },
+ {
+  "name": "黑山老妖",
+  "heroName": "黑山老妖",
+  "level": 90,
+  "position": 5,
+  "atk": 33067,
+  "hp": 311900,
+  "maxHp": 311900,
+  "rage": 50,
+  "job": "天师",
+  "isMainHero": null,
+  "skill": "吸星大法",
+  "skillType": "healAll",
+  "skillMul": 1.3,
+  "specialStats": {
+   "crit": 120,
+   "tenacity": 152,
+   "block": 154,
+   "pierce": 0,
+   "deadly": 116,
+   "healBonus": 90,
+   "hit": 0,
+   "dodge": 0,
+   "physDef": 33542,
+   "magicDef": 29042
+  },
+  "xianfeng": 766,
+  "star": 1,
+  "equipments": [
+   {
+    "name": "金琼剑",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 0
+   },
+   {
+    "name": "金琼甲",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 1
+   },
+   {
+    "name": "金琼冠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 2
+   },
+   {
+    "name": "金琼腕",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 3
+   },
+   {
+    "name": "金琼靴",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 4
+   },
+   {
+    "name": "金琼坠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 5
+   }
+  ],
+  "xianqi": null
+ },
+ {
+  "name": "天师主角",
+  "heroName": "天师主角",
+  "level": 90,
+  "position": 7,
+  "atk": 46487,
+  "hp": 300892,
+  "maxHp": 300892,
+  "rage": 140,
+  "job": "天师",
+  "isMainHero": true,
+  "skill": "流云诀",
+  "skillType": "single",
+  "skillMul": 1.5,
+  "specialStats": {
+   "crit": 137,
+   "tenacity": 0,
+   "block": 0,
+   "pierce": 150,
+   "deadly": 153,
+   "healBonus": 0,
+   "hit": 144,
+   "dodge": 0,
+   "physDef": 20585,
+   "magicDef": 20585
+  },
+  "xianfeng": 842,
+  "star": 5,
+  "equipments": [
+   {
+    "name": "金琼剑",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 0
+   },
+   {
+    "name": "天琼甲",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 1
+   },
+   {
+    "name": "天琼冠",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 2
+   },
+   {
+    "name": "金琼腕",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 3
+   },
+   {
+    "name": "天琼靴",
+    "quality": "tianqiong",
+    "strength": 90,
+    "slot": 4
+   },
+   {
+    "name": "金琼坠",
+    "quality": "jinqiong",
+    "strength": 90,
+    "slot": 5
+   }
+  ],
+  "xianqi": null
+ }
+]
